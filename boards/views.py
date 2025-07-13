@@ -40,6 +40,28 @@ class BoardDetailView(LoginRequiredMixin, DetailView):
         return Board.objects.filter(
             Q(owner=self.request.user) | Q(members=self.request.user)
         ).distinct()
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        board = self.get_object()
+
+        # Leemos 'priority' del querystring (valor "1","2" o "3")
+        selected = self.request.GET.get('priority', '')
+        ctx['selected_priority'] = selected
+
+        # Preparamos las listas con tareas filtradas por prioridad
+        lists = board.lists.all()
+        for lst in lists:
+            if selected in ['1', '2', '3']:
+                lst.filtered_tasks = (
+                    lst.tasks
+                       .filter(priority=int(selected))
+                       .order_by('position')
+                )
+            else:
+                lst.filtered_tasks = lst.tasks.all().order_by('position')
+        ctx['lists'] = lists
+        return ctx
     
 
 # Clase para crear un nuevo tablero
