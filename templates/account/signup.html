@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load form_tags %}
+
+{% block title %}Registro{% endblock %}
+{% block content %}
+  <div class="card mx-auto" style="max-width: 400px;">
+    <div class="card-body">
+      <h3 class="card-title mb-4 text-center">Crear cuenta</h3>
+      <form method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+          {{ form.username.label_tag }}
+          {{ form.username|add_class:"form-control" }}
+          {{ form.username.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.email.label_tag }}
+          {{ form.email|add_class:"form-control" }}
+          {{ form.email.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.password1.label_tag }}
+          {{ form.password1|add_class:"form-control" }}
+          {{ form.password1.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.password2.label_tag }}
+          {{ form.password2|add_class:"form-control" }}
+          {{ form.password2.errors }}
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">
+          Registrarme
+        </button>
+
+        <hr>
+        <p class="text-center">¿Ya tienes cuenta?
+          <a href="{% url 'account_login' %}">Inicia sesión</a>
+        </p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

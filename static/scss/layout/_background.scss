@@ -1,0 +1,35 @@
+@import "../abstracts/variables";   // Traemos $brand-secondary, $brand-light, $spacer-lg, $font-family-sans…
+
+// Animación de scroll de fondo
+@keyframes bg-scrolling {
+0% { background-position: 0 0; }
+100% { background-position: 50px 50px; }
+}
+
+html {
+// Fondo pastel suave usando brand-secondary con baja opacidad
+background: rgba($brand-secondary, 0.1);
+height: 100%;
+}
+
+body {
+margin: 0;
+padding: 0;
+min-height: 100%;
+font-family: $font-family-sans;
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: $spacer-lg;
+
+// Rejilla de líneas sutiles usando brand-secondary semi-transparente
+background:
+linear-gradient(90deg, rgba($brand-secondary, 0.15) 1px, transparent 1px) 0 0,
+linear-gradient(180deg, rgba($brand-secondary, 0.15) 1px, transparent 1px) 0 0,
+rgba($brand-secondary, 0.05);
+background-size: 50px 50px;
+
+// Animación infinita
+animation: bg-scrolling 8s linear infinite;
+background-attachment: fixed;
+}

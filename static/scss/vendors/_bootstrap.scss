@@ -1,0 +1,8 @@
+// Sobrescribo variables antes de cargar Bootstrap
+$primary:          #0d6efd;
+$success:          #198754;
+$danger:           #dc3545;
+$font-family-base: 'Inter', sans-serif;
+
+// Importo Bootstrap SCSS
+@import "bootstrap/scss/bootstrap";

@@ -1,0 +1,13 @@
+// Ajusto el ancho máximo de las columnas en desktop
+@media (min-width: 992px) {
+  .task-list {
+    max-width: 30rem;
+  }
+}
+
+// Margen extra en móviles
+@media (max-width: 575px) {
+  .task-list {
+    margin-bottom: $spacer-lg;
+  }
+}

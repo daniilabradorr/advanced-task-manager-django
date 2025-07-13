@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ board.name }}{% endblock %}
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ board.name }}</h2>
+    <div>
+      <a class="btn btn-sm btn-outline-primary" href="{% url 'boards:edit' board.slug %}">✏️ Editar</a>
+      {% if board.owner == user %}
+        <a class="btn btn-sm btn-outline-danger" href="{% url 'boards:delete' board.slug %}">🗑️ Eliminar</a>
+      {% endif %}
+    </div>
+  </div>
+
+  {# Formulario para añadir lista con popover de consejo #}
+  <form class="mb-4 d-flex" action="{% url 'boards:tasklist_add' board.slug %}" method="post">
+    {% csrf_token %}
+    <input
+      class="form-control me-2"
+      type="text"
+      name="name"
+      placeholder="Nombre de la nueva lista"
+      required
+      data-bs-toggle="popover"
+      data-bs-trigger="focus"
+      title="Consejo"
+      data-bs-content="Usa nombres breves y muy descriptivos para esta lista."
+    >
+    <button class="btn btn-success" type="submit">Añadir lista</button>
+  </form>
+
+  {# Botones de exportación CSV / JSON #}
+  <div class="mb-4 text-end">
+    <a href="{% url 'boards:export' board.slug %}?format=csv"
+       class="btn btn-sm btn-outline-primary me-2">
+      📥 Exportar CSV
+    </a>
+    <a href="{% url 'boards:export' board.slug %}?format=json"
+       class="btn btn-sm btn-outline-secondary">
+      📱 Exportar JSON
+    </a>
+  </div>
+
+  {# Grid de listas y tareas #}
+  <div class="row gy-4">
+    {% for lst in board.lists.all %}
+      <div class="col-md-4">
+        <div class="card task-list"
+             data-list-id="{{ lst.pk }}"
+             data-position="{{ lst.position }}"
+             draggable="true">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>{{ lst.name }}</span>
+            <span>
+              <a class="btn btn-sm btn-outline-primary me-1"
+                 href="{% url 'boards:tasklist_edit' board.slug lst.pk %}">
+                ✏️
+              </a>
+              <a class="btn btn-sm btn-outline-danger"
+                 href="{% url 'boards:tasklist_delete' board.slug lst.pk %}">
+                🗑️
+              </a>
+            </span>
+          </div>
+          <ul class="list-group list-group-flush">
+            {% for task in lst.tasks.all %}
+              <li class="list-group-item d-flex justify-content-between align-items-center"
+                  data-task-id="{{ task.pk }}"
+                  draggable="true">
+                <span>
+                  {{ task.title }}
+                  {% if task.assignee %}<small class="text-muted">(@{{ task.assignee.username }})</small>{% endif %}
+                </span>
+                <span>
+                  <a class="btn btn-sm btn-outline-secondary me-1" href="{% url 'tasks:edit' task.pk %}">✏️</a>
+                  <a class="btn btn-sm btn-outline-danger" href="{% url 'tasks:delete' task.pk %}">🗑️</a>
+                </span>
+              </li>
+            {% empty %}
+              <li class="list-group-item">No hay tareas</li>
+            {% endfor %}
+          </ul>
+          <div class="card-body text-center">
+            <a class="btn btn-sm btn-primary" href="{% url 'tasks:add' lst.pk %}">+ Añadir tarea</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block extra_scripts %}
+  {{ block.super }}
+  <script>
+    // Inicializar todos los popovers en esta página
+    document.addEventListener('DOMContentLoaded', () => {
+      const popoverTriggerList = Array.from(
+        document.querySelectorAll('[data-bs-toggle="popover"]')
+      );
+      popoverTriggerList.forEach(el => {
+        new bootstrap.Popover(el);
+      });
+    });
+  </script>
+{% endblock %}

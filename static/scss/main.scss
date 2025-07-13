@@ -1,0 +1,25 @@
+// Variables y mixins
+@import "abstracts/variables"; // Mis variables globales
+@import "abstracts/mixins";    // Mis mixins reutilizables
+
+// Bootstrap con mis overrides
+@import "vendors/bootstrap";   // Bootstrap compilado con mis colores
+
+// Estilos base
+@import "base/reset";          // Reset CSS
+@import "base/typography";     // Tipografía global
+
+// Layout general
+@import "layout/navbar";       // Estilo de la navbar
+@import "layout/footer";       // Estilo del footer
+@import "layout/background";    //Estilo del fondo de la App
+
+// Componentes
+@import "components/buttons";  // Botones personalizados
+@import "components/forms";    // Formularios
+@import "components/cards";
+@import "components/alerts";
+
+// Páginas específicas
+@import "pages/board-detail";  // Ajustes para la vista de tablero
+@import "pages/responsive";

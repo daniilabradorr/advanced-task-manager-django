@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load form_tags %}
+
+{% block title %}Editar perfil{% endblock %}
+{% block content %}
+<div class="card mx-auto" style="max-width:500px;">
+  <div class="card-body">
+    <h3 class="card-title text-center mb-4">Editar perfil</h3>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <div class="mb-3 text-center">
+        {% if user.avatar %}
+          <img src="{{ user.avatar.url }}" class="rounded-circle mb-2" alt="Avatar" width="100" height="100">
+        {% endif %}
+        {{ form.avatar.label_tag }}
+        {{ form.avatar|add_class:"form-control" }}
+        {{ form.avatar.errors }}
+      </div>
+
+      <div class="mb-3">
+        {{ form.bio.label_tag }}
+        {{ form.bio }}
+        {{ form.bio.errors }}
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <a href="{% url 'accounts:profile' %}" class="btn btn-secondary">Cancelar</a>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

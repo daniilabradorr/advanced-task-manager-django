@@ -1,0 +1,21 @@
+// Uso mis variables y mixin para crear variantes
+.btn-brand {
+  @extend .btn;
+  background-color: $brand-primary;
+  color: #fff;
+  @include elevated-card;
+  border: none;
+  &:hover {
+    background-color: darken($brand-primary, 7%);
+  }
+}
+
+.btn-outline-brand {
+  @extend .btn-outline-secondary;
+  color: $brand-primary;
+  border-color: $brand-primary;
+  &:hover {
+    background-color: $brand-primary;
+    color: #fff;
+  }
+}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load form_tags %}
+
+{% block title %}Login{% endblock %}
+{% block content %}
+  <div class="card mx-auto" style="max-width: 400px;">
+    <div class="card-body">
+      <h3 class="card-title mb-4 text-center">Iniciar sesión</h3>
+      <form method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+          {{ form.login.label_tag }}
+          {{ form.login|add_class:"form-control" }}
+          {{ form.login.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.password.label_tag }}
+          {{ form.password|add_class:"form-control" }}
+          {{ form.password.errors }}
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <button type="submit" class="btn btn-primary">Entrar</button>
+          <a href="{% url 'account_reset_password' %}">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <hr>
+        <p class="text-center">¿No tienes cuenta?
+          <a href="{% url 'account_signup' %}">Regístrate</a>
+        </p>
+      </form>
+    </div>
+  </div>
+{% endblock %}

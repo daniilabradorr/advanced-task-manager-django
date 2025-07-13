@@ -1,0 +1,12 @@
+
+.alert {
+  position: relative;
+
+  .btn-close {
+    /* reduzco padding y tamaño del icono */
+    padding: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    font-size: 0.75rem;
+  }
+}

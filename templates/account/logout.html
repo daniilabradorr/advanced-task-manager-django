@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cerrar sesión{% endblock %}
+{% block content %}
+  <div class="card mx-auto" style="max-width: 400px;">
+    <div class="card-body text-center">
+      <h3 class="card-title mb-4">¿Cerrar sesión?</h3>
+      <p>¿Estás seguro de que quieres cerrar tu sesión en Task Manager?</p>
+      <form method="post" action="{% url 'account_logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger me-2">Sí, cerrar sesión</button>
+        <a href="{% url 'boards:list' %}" class="btn btn-secondary">Cancelar</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

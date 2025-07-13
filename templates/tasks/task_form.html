@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  {% if object %}Editar Tarea{% else %}Nueva Tarea{% endif %}
+{% endblock %}
+
+{% block content %}
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <h2 class="card-title mb-4">
+        {% if object %}Editar{% else %}Crear{% endif %} Tarea
+      </h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.as_p }}
+        <div class="d-flex justify-content-between mt-4">
+          <button type="submit" class="btn btn-primary">
+            Guardar
+          </button>
+          {# Cancelar: si estamos editando, volvemos al detalle del board; si estamos creando, al referer #}
+          {% if object %}
+            <a href="{% url 'boards:detail' object.task_list.board.slug %}"
+               class="btn btn-secondary">
+              Cancelar
+            </a>
+          {% else %}
+            <a href="{{ request.META.HTTP_REFERER }}"
+               class="btn btn-secondary">
+              Cancelar
+            </a>
+          {% endif %}
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

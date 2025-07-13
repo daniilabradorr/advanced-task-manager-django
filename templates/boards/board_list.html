@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Mis Tableros{% endblock %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Mis Tableros</h2>
+    <a href="{% url 'boards:create' %}" class="btn btn-primary">
+      + Crear nuevo tablero
+    </a>
+  </div>
+
+  {% if boards %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for board in boards %}
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ board.name }}</h5>
+              <p class="card-text text-truncate">
+                {{ board.description|default:"Sin descripción" }}
+              </p>
+              <a href="{% url 'boards:detail' board.slug %}"
+                 class="mt-auto btn btn-sm btn-outline-primary">
+                Ver tablero
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      No tienes tableros creados aún. 
+      <a href="{% url 'boards:create' %}" class="alert-link">Crea uno</a>.
+    </div>
+  {% endif %}
+{% endblock %}
+django
+Copiar
+Editar

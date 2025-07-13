@@ -1,0 +1,17 @@
+// Mixin para tarjetas elevadas
+@mixin elevated-card {
+  box-shadow: $card-box-shadow;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
+  }
+}
+
+// Mixin de texto truncado a una línea
+@mixin text-truncate {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

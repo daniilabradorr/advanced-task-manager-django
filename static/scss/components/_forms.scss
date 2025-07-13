@@ -1,0 +1,16 @@
+// Inputs con borde suavizado y foco custom
+.form-control, .form-select {
+  border-radius: 0.375rem;
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($brand-primary, 0.25);
+    border-color: $brand-primary;
+  }
+}
+
+// Validación visual (ejemplo)
+.is-invalid {
+  border-color: $danger !important;
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba($danger, 0.25);
+  }
+}

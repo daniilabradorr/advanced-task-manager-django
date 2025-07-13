@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load form_tags %}
+{% block title %}
+  {% if view.object %}Editar{% else %}Crear{% endif %} Tablero
+{% endblock %}
+
+{% block content %}
+  <div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <h3 class="card-title mb-4">
+        {% if view.object %}Editar{% else %}Crear{% endif %} Tablero
+      </h3>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="mb-3">
+          {{ form.name.label_tag }}
+          {{ form.name|add_class:"form-control" }}
+          {{ form.name.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.slug.label_tag }}
+          {{ form.slug|add_class:"form-control" }}
+          {{ form.slug.errors }}
+        </div>
+        <div class="mb-3">
+          {{ form.members.label_tag }}
+          {{ form.members|add_class:"form-select" }}
+          {{ form.members.errors }}
+        </div>
+        <div class="d-flex justify-content-end">
+          <a href="{% url 'boards:list' %}" class="btn btn-secondary me-2">
+            Cancelar
+          </a>
+          <button type="submit" class="btn btn-success">
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}

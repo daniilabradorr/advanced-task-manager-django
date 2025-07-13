@@ -1,0 +1,53 @@
+// Contenedores full-width hasta SM
+@media (max-width: 575px) {
+.container {
+max-width: 100% !important;
+padding-left: 1rem;
+padding-right: 1rem;
+}
+}
+
+// Cards y formularios ocupen todo el ancho y margen vertical
+@media (max-width: 575px) {
+.card {
+margin: 0.5rem 0;
+width: 100%;
+}
+form input,
+form select,
+form textarea {
+width: 100%;
+margin-top: 0.5rem;
+}
+// Botones: ancho completo y margen horizontal de 2px
+form .btn {
+width: 100%;
+margin: 0.5rem 2px;
+}
+}
+
+// Grid de listas: cada lista full-width en <768px
+@media (max-width: 767px) {
+.task-list {
+max-width: none;
+width: 100%;
+}
+}
+
+// Navbar y footer: menos padding en XS
+@media (max-width: 575px) {
+.navbar {
+padding-left: 0.5rem;
+padding-right: 0.5rem;
+}
+footer .container {
+padding: 1rem 0.5rem;
+}
+}
+
+// Ajuste de tipografía si hiciera falta en algun momento
+@media (max-width: 575px) {
+h2, .card-title {
+font-size: 1.25rem;
+}
+}

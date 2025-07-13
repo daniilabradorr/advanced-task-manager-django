@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Eliminar Lista{% endblock %}
+
+{% block content %}
+  <div class="card mx-auto text-center" style="max-width: 400px;">
+    <div class="card-body">
+      <h4 class="card-title">Eliminar “{{ object.name }}”</h4>
+      <p class="card-text">¿Quieres eliminar esta lista y sus tareas?</p>
+      <form method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">
+          Sí, eliminar
+        </button>
+      </form>
+      <a href="{% url 'boards:detail' object.board.slug %}"
+         class="btn btn-secondary ms-2">Cancelar</a>
+    </div>
+  </div>
+{% endblock %}
